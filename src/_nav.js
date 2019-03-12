@@ -11,7 +11,26 @@ export default {
     },
     {
       title: true,
-      name: 'Theme',
+      name: 'Pàginas ',
+      wrapper: {            // optional wrapper object
+        element: '',        // required valid HTML5 element tag
+        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      },
+      class: ''             // optional class names space delimited list for title item ex: "text-center"
+    },
+    {
+      name: 'Lista de Páginas',
+      url: '/theme/colors',
+      icon: 'icon-drop',
+    },
+    {
+      name: 'Estadísticas',
+      url: '/theme/typography',
+      icon: 'icon-pie-chart',
+    },
+    {
+      title: true,
+      name: 'Otros ',
       wrapper: {            // optional wrapper object
         element: '',        // required valid HTML5 element tag
         attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
@@ -261,20 +280,20 @@ export default {
       icon: 'icon-ban',
       attributes: { disabled: true },
     },
-    {
-      name: 'Download CoreUI',
-      url: 'https://coreui.io/react/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success',
-      attributes: { target: '_blank', rel: "noopener" },
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'https://coreui.io/pro/react/',
-      icon: 'icon-layers',
-      variant: 'danger',
-      attributes: { target: '_blank', rel: "noopener" },
-    },
+    // {
+    //   name: 'Download CoreUI',
+    //   url: 'https://coreui.io/react/',
+    //   icon: 'icon-cloud-download',
+    //   class: 'mt-auto',
+    //   variant: 'success',
+    //   attributes: { target: '_blank', rel: "noopener" },
+    // },
+    // {
+    //   name: 'Try CoreUI PRO',
+    //   url: 'https://coreui.io/pro/react/',
+    //   icon: 'icon-layers',
+    //   variant: 'danger',
+    //   attributes: { target: '_blank', rel: "noopener" },
+    // },
   ],
 };
