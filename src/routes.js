@@ -36,6 +36,8 @@ const Typography = React.lazy(() => import('./views/Theme/Typography'));
 const Widgets = React.lazy(() => import('./views/Widgets/Widgets'));
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
+const SitiosWeb = React.lazy(() => import('./views/SitiosWeb/SitiosWeb'));
+const SitioWeb = React.lazy(() => import('./views/SitiosWeb/SitioWeb'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -80,6 +82,8 @@ const routes = [
   { path: '/charts', name: 'Charts', component: Charts },
   { path: '/users', exact: true,  name: 'Users', component: Users },
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
+  { path: '/sitiosweb', exact: true,  name: 'Sitios Web', component: SitiosWeb },
+  { path: '/sitiosweb/:id', exact: true,  name: 'Sitio Web', component: SitioWeb },
 ];
 
 export default routes;

@@ -1,0 +1,6 @@
+{
+  "name": "SitiosWeb",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./SitiosWeb.js"
+}

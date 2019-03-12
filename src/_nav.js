@@ -20,8 +20,8 @@ export default {
     },
     {
       name: 'Lista de Páginas',
-      url: '/theme/colors',
-      icon: 'icon-drop',
+      url: '/sitiosweb',
+      icon: 'icon-list',
     },
     {
       name: 'Estadísticas',
