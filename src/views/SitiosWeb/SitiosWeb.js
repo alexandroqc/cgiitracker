@@ -33,14 +33,14 @@ function UserRow(props) {
 
   return (
     <tr key={sitioweb.id.toString()}>
-      <th scope="row">
+      {/* <th scope="row">
         <Link to={sitioWebLink}>{sitioweb.id}</Link>
-      </th>
+      </th> */}
       <td>
         <Link to={sitioWebLink}>{sitioweb.url}</Link>
       </td>
-      {/* <td>{user.registered}</td>
-      <td>{user.role}</td> */}
+      <td>{sitioweb.protocol}</td>
+      {/* <td>{user.role}</td> */}
       <td>
         <Link to={sitioWebLink}>
           <Badge color={getBadge(sitioweb.status)}>{sitioweb.status}</Badge>
@@ -69,7 +69,6 @@ class SitiosWeb extends Component {
   }
 
   render() {
-    // const sitioWebList = sitioWebData.filter(sitioweb => sitioweb.id < 10);
     const { currentPage } = this.state;
 
     const sitioWebList = sitioWebData.slice(
@@ -80,7 +79,7 @@ class SitiosWeb extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xl={6}>
+          <Col xl={12}>
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" /> Sitios Web Escaneados{" "}
@@ -90,11 +89,11 @@ class SitiosWeb extends Component {
                 <Table responsive hover>
                   <thead>
                     <tr>
-                      <th scope="col">id</th>
+                      {/* <th scope="col">id</th> */}
                       <th scope="col">Dominio</th>
-                      {/* <th scope="col">registered</th>
-                      <th scope="col">role</th> */}
-                      <th scope="col">status</th>
+                      <th scope="col">Protocolo</th>
+                      {/* <th scope="col">role</th> */}
+                      <th scope="col">Estado</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -104,7 +103,7 @@ class SitiosWeb extends Component {
                   </tbody>
                 </Table>
                 <Pagination>
-                  
+
                   {/* Left side button config */}
                   <PaginationItem disabled={currentPage <= 0}>
                     <PaginationLink
