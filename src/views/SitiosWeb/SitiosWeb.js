@@ -51,11 +51,30 @@ function UserRow(props) {
 }
 
 class SitiosWeb extends Component {
+  constructor() {
+    super();
+
+    this.pageSize = 10;
+    this.pagesCount = Math.ceil(sitioWebData.length / this.pageSize);
+    this.state = {
+      currentPage: 0
+    };
+  }
+
+  handleClick(e, index) {
+    e.preventDefault();
+    this.setState({
+      currentPage: index
+    });
+  }
+
   render() {
     // const sitioWebList = sitioWebData.filter(sitioweb => sitioweb.id < 10);
+    const { currentPage } = this.state;
 
     const sitioWebList = sitioWebData.slice(
-      1, 3
+      currentPage * this.pageSize,
+      (currentPage + 1) * this.pageSize
     );
 
     return (
@@ -85,17 +104,35 @@ class SitiosWeb extends Component {
                   </tbody>
                 </Table>
                 <Pagination>
-                  <PaginationItem>
-                    <PaginationLink previous tag="button" />
+                  
+                  {/* Left side button config */}
+                  <PaginationItem disabled={currentPage <= 0}>
+                    <PaginationLink
+                      previous
+                      tag="button"
+                      onClick={e => this.handleClick(e, currentPage - 1)}
+                    />
                   </PaginationItem>
-                  <PaginationItem active>
-                    <PaginationLink tag="button">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink tag="button">2</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink next tag="button" />
+
+                  {[...Array(this.pagesCount)].map((page, i) => (
+                    <PaginationItem active={i === currentPage} key={i}>
+                      <PaginationLink
+                        onClick={e => this.handleClick(e, i)}
+                        href="#"
+                        tag="button"
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+
+                  {/* Right side button config */}
+                  <PaginationItem disabled={currentPage >= this.pagesCount - 1}>
+                    <PaginationLink
+                      next
+                      tag="button"
+                      onClick={e => this.handleClick(e, currentPage + 1)}
+                    />
                   </PaginationItem>
                 </Pagination>
               </CardBody>
