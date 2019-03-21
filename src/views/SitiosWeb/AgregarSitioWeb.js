@@ -27,7 +27,8 @@ class AgregarSitioWeb extends Component {
       url: '',
       protocol: '',
       domain: '',
-      path: ''
+      path: '',
+      btn_disabled: true
     };
   }
 
@@ -40,22 +41,20 @@ class AgregarSitioWeb extends Component {
       this.setState({
         protocol: myurl.protocol,
         domain: myurl.hostname,
-        path: myurl.pathname
+        path: myurl.pathname,
+        btn_disabled: false
       });
     } catch (error) {
       console.log('no es url')
+      this.setState({
+        btn_disabled: true,
+      });
     }
 
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
-    try {
-      const url = new URL(this.state.url)
-      console.log(url.hostname)
-    } catch (error) {
-      console.log("no es url")
-    }
+
     
     // this.handleReset();
   }
@@ -98,7 +97,12 @@ class AgregarSitioWeb extends Component {
                           value={this.state.url}
                         />
                         <InputGroupAddon addonType="append">
-                          <Button type="button" color="primary" onClick={this.handleSubmit}>Dividir</Button>
+                          <Button 
+                            type="button" 
+                            color="primary" 
+                            disabled={this.state.btn_disabled}
+                            onClick={this.handleSubmit}
+                          > Dividir</Button>
                         </InputGroupAddon>
                       </InputGroup>
                         <FormText color="muted">Ingrese URI</FormText>
