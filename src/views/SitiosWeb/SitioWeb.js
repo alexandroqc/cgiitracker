@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
 
-import sitiosWebData from './SitiosWebData'
+import sitiosWebData from './SitiosWebData';
 
 class SitioWeb extends Component {
 

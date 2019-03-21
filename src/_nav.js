@@ -24,6 +24,11 @@ export default {
       icon: 'icon-list',
     },
     {
+      name: 'Agregar página',
+      url: '/agregarsitioweb',
+      icon: 'icon-list',
+    },
+    {
       name: 'Estadísticas',
       url: '/theme/typography',
       icon: 'icon-pie-chart',

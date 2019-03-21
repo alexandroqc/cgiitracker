@@ -38,6 +38,7 @@ const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
 const SitiosWeb = React.lazy(() => import('./views/SitiosWeb/SitiosWeb'));
 const SitioWeb = React.lazy(() => import('./views/SitiosWeb/SitioWeb'));
+const AgregarSitioWeb = React.lazy(() => import('./views/SitiosWeb/AgregarSitioWeb'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
@@ -84,6 +85,7 @@ const routes = [
   { path: '/users/:id', exact: true, name: 'User Details', component: User },
   { path: '/sitiosweb', exact: true,  name: 'Sitios Web', component: SitiosWeb },
   { path: '/sitiosweb/:id', exact: true,  name: 'Sitio Web', component: SitioWeb },
+  { path: '/agregarsitioweb', exact: true,  name: 'Agregar Sitio Web', component: AgregarSitioWeb },
 ];
 
 export default routes;
