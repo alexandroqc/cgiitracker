@@ -17,6 +17,7 @@ import {
 
 } from "reactstrap";
 // import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import axios from 'axios';
 
 
 class AgregarSitioWeb extends Component {
@@ -30,6 +31,30 @@ class AgregarSitioWeb extends Component {
       path: '',
       btn_disabled: true
     };
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token d8ab5eed25af4c93b869eaad86a5c4247c0d88df' 
+    }
+
+    const data = {
+      scheme: this.state.protocol,
+      netloc: this.state.domain,
+      path: this.state.path
+    };
+
+    axios.post('http://0.0.0.0:8000/api/v1/page/urlinfo/', data, {headers: headers})
+    .then(response => {
+      console.log(response.data)
+      // dispatch({type: FOUND_USER, data: response.data[0]})
+    })
+    .catch(error => {
+      console.log(error)
+      // dispatch({type: ERROR_FINDING_USER})
+    });
   }
 
   handleInputChange = e => {
@@ -53,12 +78,6 @@ class AgregarSitioWeb extends Component {
       });
     }
 
-  }
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    
-    // this.handleReset();
   }
 
   handleReset = () => {
