@@ -14,17 +14,18 @@ import {
 } from "reactstrap";
 
 import sitioWebData from "./SitiosWebData";
+import axios from "axios";
 
 function UserRow(props) {
   const sitioweb = props.sitioweb;
   const sitioWebLink = `/sitiosweb/${sitioweb.id}`;
 
   const getBadge = status => {
-    return status === "Active"
+    return status === "https:"
       ? "success"
       : status === "Inactive"
       ? "secondary"
-      : status === "Pending"
+      : status === "http:"
       ? "warning"
       : status === "Banned"
       ? "danger"
@@ -37,13 +38,12 @@ function UserRow(props) {
         <Link to={sitioWebLink}>{sitioweb.id}</Link>
       </th> */}
       <td>
-        <Link to={sitioWebLink}>{sitioweb.url}</Link>
+        <Link to={sitioWebLink}>{sitioweb.netloc}</Link>
       </td>
-      <td>{sitioweb.protocol}</td>
-      {/* <td>{user.role}</td> */}
+      <td>{sitioweb.path}</td>
       <td>
         <Link to={sitioWebLink}>
-          <Badge color={getBadge(sitioweb.status)}>{sitioweb.status}</Badge>
+          <Badge color={getBadge(sitioweb.scheme)}>{sitioweb.scheme}</Badge>
         </Link>
       </td>
     </tr>
@@ -53,12 +53,15 @@ function UserRow(props) {
 class SitiosWeb extends Component {
   constructor() {
     super();
-
     this.pageSize = 10;
-    this.pagesCount = Math.ceil(sitioWebData.length / this.pageSize);
     this.state = {
+      count: 0,
+      next: null,
+      previous: null,
+      results: [],
       currentPage: 0
     };
+    this.pagesCount = Math.ceil(this.state.count / this.pageSize);
   }
 
   handleClick(e, index) {
@@ -68,10 +71,32 @@ class SitiosWeb extends Component {
     });
   }
 
+  componentDidMount() {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token 0dd99abc1cb1d89339ccfb7c407aebe7c7175c27'
+    };    
+    axios
+      .get('http://0.0.0.0:8000/api/v1/page/urlinfo/', {headers: headers})
+      .then(response => {
+        this.setState({
+          count: response.data.count,
+          next: response.data.next,
+          previous: response.data.previous,
+          results: response.data.results
+        });
+        console.log(this.state);
+      })
+      .catch(error => {
+        console.log(error);
+        // dispatch({type: ERROR_FINDING_USER})
+      });
+  }
+
   render() {
     const { currentPage } = this.state;
 
-    const sitioWebList = sitioWebData.slice(
+    const sitioWebList = this.state.results.slice(
       currentPage * this.pageSize,
       (currentPage + 1) * this.pageSize
     );
@@ -91,9 +116,9 @@ class SitiosWeb extends Component {
                     <tr>
                       {/* <th scope="col">id</th> */}
                       <th scope="col">Dominio</th>
-                      <th scope="col">Protocolo</th>
+                      <th scope="col">Ruta</th>
                       {/* <th scope="col">role</th> */}
-                      <th scope="col">Estado</th>
+                      <th scope="col">Protocolo</th>
                     </tr>
                   </thead>
                   <tbody>

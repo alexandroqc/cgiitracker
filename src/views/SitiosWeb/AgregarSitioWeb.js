@@ -37,7 +37,7 @@ class AgregarSitioWeb extends Component {
     e.preventDefault();
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token d8ab5eed25af4c93b869eaad86a5c4247c0d88df' 
+      'Authorization': 'Token 0dd99abc1cb1d89339ccfb7c407aebe7c7175c27' 
     }
 
     const data = {
