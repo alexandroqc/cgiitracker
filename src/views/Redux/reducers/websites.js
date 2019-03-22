@@ -1,5 +1,15 @@
 const todos = (state = [], action) => {
     switch (action.type) {
+      case 'ADD_WEBSITE':
+        return [
+          ...state,
+          {
+            id: action.id,
+            netloc: action.netloc,
+            path: action.path,
+            scheme: action.scheme
+          }
+        ]
       case 'ADD_TODO':
         return [
           ...state,
