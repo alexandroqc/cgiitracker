@@ -45,8 +45,10 @@ class AgregarSitioWeb extends Component {
         btn_disabled: false
       });
     } catch (error) {
-      console.log('no es url')
       this.setState({
+        protocol: '',
+        domain: '',
+        path: '',
         btn_disabled: true,
       });
     }
@@ -102,7 +104,7 @@ class AgregarSitioWeb extends Component {
                             color="primary" 
                             disabled={this.state.btn_disabled}
                             onClick={this.handleSubmit}
-                          > Dividir</Button>
+                          > Enviar</Button>
                         </InputGroupAddon>
                       </InputGroup>
                         <FormText color="muted">Ingrese URI</FormText>
