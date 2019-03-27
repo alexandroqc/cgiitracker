@@ -15,6 +15,10 @@ import {
   Row
 } from "reactstrap";
 
+import axios from 'axios';
+import { connect } from "react-redux";
+import { login } from "../../Redux/actions";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +33,30 @@ class Login extends Component {
   handleChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const headers = {
+      'Content-Type': 'application/json',
+    }
+
+    const data = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+
+    axios.post('http://0.0.0.0:8000/api-token-auth/', data, {headers: headers})
+    .then(response => {
+      console.log(response.data);
+      // this.props.dispatch(login(response.data))
+      this.props.login(response.data);
+    })
+    .catch(error => {
+      console.log(error)
+      // dispatch({type: ERROR_FINDING_USER})
+    });
   }
 
   render() {
@@ -75,7 +103,11 @@ class Login extends Component {
                       </InputGroup>
                       <Row>
                         <Col xs="6">
-                          <Button color="primary" className="px-4">
+                          <Button 
+                            color="primary" 
+                            className="px-4"
+                            onClick={this.handleSubmit}
+                          >
                             Login
                           </Button>
                         </Col>
@@ -121,5 +153,14 @@ class Login extends Component {
     );
   }
 }
+// const mapDispatchToProps = (dispatch) => ({
+//     login: token => dispatch(login(token))
+// });
+const mapDispatchToProps = (dispatch) => {
+  console.log(dispatch);
+  return {
+    login: (token) => dispatch(login(token))
+  }
+};
 
-export default Login;
+export default connect(null, mapDispatchToProps)(Login);

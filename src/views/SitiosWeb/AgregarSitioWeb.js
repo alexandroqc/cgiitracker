@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { createSitioWeb } from "../Redux/actions/sitioWebActions";
 // import { Link } from "react-router-dom";
 import {
   Card,
@@ -35,9 +37,11 @@ class AgregarSitioWeb extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+
+    this.props.createSitioWeb(this.state)
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token 0dd99abc1cb1d89339ccfb7c407aebe7c7175c27' 
+      'Authorization': 'Token e53def9d9acd69afe8c39afbf03740abf9b4335f' 
     }
 
     const data = {
@@ -169,4 +173,10 @@ class AgregarSitioWeb extends Component {
   }
 }
 
-export default AgregarSitioWeb;
+const mapDispatchToProps = (dispatch, props) => {
+  return{
+    createSitioWeb: (sitioweb) => dispatch(createSitioWeb(sitioweb))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(AgregarSitioWeb);

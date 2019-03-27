@@ -13,8 +13,10 @@ import {
   PaginationLink
 } from "reactstrap";
 
-import sitioWebData from "./SitiosWebData";
+// import sitioWebData from "./SitiosWebData";
 import axios from "axios";
+
+import { connect } from "react-redux";
 
 function UserRow(props) {
   const sitioweb = props.sitioweb;
@@ -74,7 +76,7 @@ class SitiosWeb extends Component {
   componentDidMount() {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token 0dd99abc1cb1d89339ccfb7c407aebe7c7175c27'
+      'Authorization': 'Token e53def9d9acd69afe8c39afbf03740abf9b4335f'
     };    
     axios
       .get('http://0.0.0.0:8000/api/v1/page/urlinfo/', {headers: headers})
@@ -94,6 +96,9 @@ class SitiosWeb extends Component {
   }
 
   render() {
+
+    const { sitiosweb } =  this.props;
+    
     const { currentPage } = this.state;
 
     const sitioWebList = this.state.results.slice(
@@ -122,9 +127,10 @@ class SitiosWeb extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {sitioWebList.map((sitioweb, index) => (
+
+                    {/* {sitioWebList.map((sitioweb, index) => (
                       <UserRow key={index} sitioweb={sitioweb} />
-                    ))}
+                    ))} */}
                   </tbody>
                 </Table>
                 <Pagination>
@@ -168,4 +174,10 @@ class SitiosWeb extends Component {
   }
 }
 
-export default SitiosWeb;
+const mapStateToProps = (state) => {
+  return {
+    sitiosweb: state.sitiosweb
+  }
+}
+
+export default connect(mapStateToProps)(SitiosWeb);
