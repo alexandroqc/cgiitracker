@@ -1,5 +1,4 @@
 const initState = {
-    token : '',
     login: {
         token: ''
     }
@@ -8,13 +7,18 @@ const initState = {
 
 const authReducer = (state = initState, action) => {
     switch (action.type) {
-        case "ADD_AUTH":
-            return [
+        case 'ADD_AUTH':
+            console.log(action.token);
+            return {
               ...state,
-              action.updates
-            ];
+              login: action.token
+            //   {
+            //       login: action.token
+            //   }
+            //   action.updates
+            };
         default:
-          return state     
+          return state
       }
 }
 
