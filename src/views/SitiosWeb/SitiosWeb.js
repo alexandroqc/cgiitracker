@@ -17,6 +17,7 @@ import {
 import axios from "axios";
 
 import { connect } from "react-redux";
+import { listarSitioWeb } from "../Redux/actions";
 
 function UserRow(props) {
   const sitioweb = props.sitioweb;
@@ -81,13 +82,19 @@ class SitiosWeb extends Component {
     axios
       .get('http://0.0.0.0:8000/api/v1/page/urlinfo/', {headers: headers})
       .then(response => {
+        this.props.listarSitioWeb(response.data.results);
+        console.log(this.props.sitiosweb.sitiosweb);
         this.setState({
-          count: response.data.count,
-          next: response.data.next,
-          previous: response.data.previous,
-          results: response.data.results
-        });
-        console.log(this.state);
+          results : this.props.sitiosweb.sitiosweb
+        })
+        
+        // this.setState({
+        //   count: response.data.count,
+        //   next: response.data.next,
+        //   previous: response.data.previous,
+        //   results: response.data.results
+        // });
+        
       })
       .catch(error => {
         console.log(error);
@@ -179,5 +186,11 @@ const mapStateToProps = (state) => {
     sitiosweb: state.sitiosweb
   }
 }
+const mapDispatchToProps = (dispatch) => {
+  console.log(dispatch);
+  return {
+    listarSitioWeb: (sitiosweb) => dispatch(listarSitioWeb(sitiosweb))
+  }
+};
 
-export default connect(mapStateToProps)(SitiosWeb);
+export default connect(mapStateToProps, mapDispatchToProps)(SitiosWeb);
