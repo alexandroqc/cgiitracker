@@ -17,7 +17,7 @@ import {
 import axios from "axios";
 
 import { connect } from "react-redux";
-import { listarSitioWeb } from "../Redux/actions";
+import { adicionarSitioWeb } from "../Redux/actions";
 
 function UserRow(props) {
   const sitioweb = props.sitioweb;
@@ -77,16 +77,19 @@ class SitiosWeb extends Component {
   componentDidMount() {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token e53def9d9acd69afe8c39afbf03740abf9b4335f'
+      'Authorization': 'Token 416408756b2c37bcfedfab4ad8769cc9a5179afd'
     };    
     axios
       .get('http://0.0.0.0:8000/api/v1/page/urlinfo/', {headers: headers})
       .then(response => {
-        this.props.listarSitioWeb(response.data.results);
-        console.log(this.props.sitiosweb.sitiosweb);
+        // this.props.adicionarSitioWeb(response.data.results);
+        // console.log(response.data.results);
+        response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb))
+        // response.data.results.map((sitioweb) => console.log(sitioweb))
         this.setState({
-          results : this.props.sitiosweb.sitiosweb
+          results : this.props.sitiosweb
         })
+        console.log(this.state.results)
         
         // this.setState({
         //   count: response.data.count,
@@ -135,9 +138,9 @@ class SitiosWeb extends Component {
                   </thead>
                   <tbody>
 
-                    {/* {sitioWebList.map((sitioweb, index) => (
+                    {sitioWebList.map((sitioweb, index) => (
                       <UserRow key={index} sitioweb={sitioweb} />
-                    ))} */}
+                    ))}
                   </tbody>
                 </Table>
                 <Pagination>
@@ -186,11 +189,8 @@ const mapStateToProps = (state) => {
     sitiosweb: state.sitiosweb
   }
 }
-const mapDispatchToProps = (dispatch) => {
-  console.log(dispatch);
-  return {
-    listarSitioWeb: (sitiosweb) => dispatch(listarSitioWeb(sitiosweb))
-  }
-};
+const mapDispatchToProps = dispatch => ({
+    adicionarSitioWeb: sitiosweb => dispatch(adicionarSitioWeb(sitiosweb))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(SitiosWeb);

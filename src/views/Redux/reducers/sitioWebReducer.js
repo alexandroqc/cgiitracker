@@ -1,24 +1,17 @@
-const initState = {
-  sitiosweb: [
-    // { id: "1", netloc: "agetic.gob.bo", path: "/", scheme: "https:" },
-    // { id: "2", netloc: "agetic.gob.bo", path: "/cv/", scheme: "http:" }
-  ]
-};
+const sitiosWebDefaultState = [];
 
-const sitioWebReducer = (state = initState, action) => {
+export default (state = sitiosWebDefaultState, action) => {
   switch (action.type) {
-    case "LISTAR_SITIOS_WEB":
-      return {
+    case "ADICIONAR_SITIO_WEB":
+      return [
         ...state,
-        sitiosweb: action.sitiosweb
-      }
-        // return [
-        //   ...state,
-        //   action.sitioweb
-        // ];
+        action.sitioweb
+      ];
+    // return [
+    //   ...state,
+    //   action.sitioweb
+    // ];
     default:
-      return state     
+      return state;
   }
 };
-
-export default sitioWebReducer;
