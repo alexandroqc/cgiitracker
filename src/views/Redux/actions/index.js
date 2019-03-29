@@ -27,6 +27,11 @@ export const adicionarSitioWeb = (
   }
 });
 
+export const borrarSitiosWeb = () => ({
+  type: 'DELETE_SITIOS_WEB',
+  sitiosweb : []
+})
+
 // export const startAdicionarSitioWeb = (sitiowebData = {}) => {
 //   return (dispatch) => {
 //     const {

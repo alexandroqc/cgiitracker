@@ -78,36 +78,28 @@ class SitiosWeb extends Component {
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Token 416408756b2c37bcfedfab4ad8769cc9a5179afd'
-    };    
-    axios
+    };
+    if (this.props.sitiosweb.length === 0) {
+      axios
       .get('http://0.0.0.0:8000/api/v1/page/urlinfo/', {headers: headers})
       .then(response => {
-        // this.props.adicionarSitioWeb(response.data.results);
-        // console.log(response.data.results);
-        response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb))
+        response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb));
         // response.data.results.map((sitioweb) => console.log(sitioweb))
         this.setState({
           results : this.props.sitiosweb
         })
-        console.log(this.state.results)
-        
-        // this.setState({
-        //   count: response.data.count,
-        //   next: response.data.next,
-        //   previous: response.data.previous,
-        //   results: response.data.results
-        // });
-        
       })
       .catch(error => {
         console.log(error);
-        // dispatch({type: ERROR_FINDING_USER})
       });
+    } else {
+      this.setState({
+        results : this.props.sitiosweb
+      })
+    }
   }
 
   render() {
-
-    const { sitiosweb } =  this.props;
     
     const { currentPage } = this.state;
 
@@ -190,7 +182,7 @@ const mapStateToProps = (state) => {
   }
 }
 const mapDispatchToProps = dispatch => ({
-    adicionarSitioWeb: sitiosweb => dispatch(adicionarSitioWeb(sitiosweb))
+    adicionarSitioWeb: sitiosweb => dispatch(adicionarSitioWeb(sitiosweb)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SitiosWeb);

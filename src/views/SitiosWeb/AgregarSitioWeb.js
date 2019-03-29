@@ -38,10 +38,9 @@ class AgregarSitioWeb extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.props.createSitioWeb(this.state)
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token e53def9d9acd69afe8c39afbf03740abf9b4335f' 
+      'Authorization': 'Token 416408756b2c37bcfedfab4ad8769cc9a5179afd' 
     }
 
     const data = {
@@ -50,15 +49,17 @@ class AgregarSitioWeb extends Component {
       path: this.state.path
     };
 
+
     axios.post('http://0.0.0.0:8000/api/v1/page/urlinfo/', data, {headers: headers})
-    .then(response => {
-      console.log(response.data)
-      // dispatch({type: FOUND_USER, data: response.data[0]})
-    })
+      .then(response => {
+        console.log(response);
+        // dispatch({type: FOUND_USER, data: response.data[0]})
+      })
     .catch(error => {
-      console.log(error)
+      console.log(error);
       // dispatch({type: ERROR_FINDING_USER})
     });
+    this.props.history.push('/');
   }
 
   handleInputChange = e => {
@@ -122,9 +123,9 @@ class AgregarSitioWeb extends Component {
                           value={this.state.url}
                         />
                         <InputGroupAddon addonType="append">
-                          <Button 
+                          <Button
                             type="button" 
-                            color="primary" 
+                            color="primary"
                             disabled={this.state.btn_disabled}
                             onClick={this.handleSubmit}
                           > Enviar</Button>
@@ -133,12 +134,13 @@ class AgregarSitioWeb extends Component {
                         <FormText color="muted">Ingrese URI</FormText>
                       </Col>
                       <Col xs="12" md="4">
-                        <Input 
+                        <Input
                           type="text" 
-                          id="text-input" 
-                          name="text-input" 
-                          placeholder="Protocolo" 
+                          id="text-input"
+                          name="text-input"
+                          placeholder="Protocolo"
                           value={this.state.protocol}
+                          readOnly
                         />
                         <FormText color="muted">Protocolo</FormText>
                       </Col>
@@ -149,6 +151,7 @@ class AgregarSitioWeb extends Component {
                           name="text-input" 
                           placeholder="Dominio" 
                           value={this.state.domain}
+                          readOnly
                         />
                         <FormText color="muted">Dominio</FormText>
                       </Col>
@@ -159,6 +162,7 @@ class AgregarSitioWeb extends Component {
                           name="text-input" 
                           placeholder="Path"
                           value={this.state.path}
+                          readOnly
                         />
                         <FormText color="muted">Path</FormText>
                       </Col>
