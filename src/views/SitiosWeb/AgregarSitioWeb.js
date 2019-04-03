@@ -16,8 +16,8 @@ import {
   FormText,
   InputGroupAddon,
   Button
-
 } from "reactstrap";
+import { AppSwitch } from '@coreui/react'
 // import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 import axios from 'axios';
 
@@ -40,7 +40,7 @@ class AgregarSitioWeb extends Component {
 
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token 416408756b2c37bcfedfab4ad8769cc9a5179afd' 
+      'Authorization': 'Token 9378fb4c5660641d20b32831d8e96af0c5238fff' 
     }
 
     const data = {
@@ -60,6 +60,28 @@ class AgregarSitioWeb extends Component {
       // dispatch({type: ERROR_FINDING_USER})
     });
     this.props.history.push('/');
+  }
+
+  handleScan = () => {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token 9378fb4c5660641d20b32831d8e96af0c5238fff' 
+    }
+    const uri = encodeURIComponent(this.state.protocol + '/' + this.state.domain + this.state.path);
+    console.log(uri);
+    axios
+    .get('http://0.0.0.0:8000/api/v1/page/search/'+uri, {headers: headers})
+    .then(response => {
+      console.log(response.data)
+      // response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb));
+      // response.data.results.map((sitioweb) => console.log(sitioweb))
+      // this.setState({
+      //   results : this.props.sitiosweb
+      // })
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   handleInputChange = e => {
@@ -123,12 +145,25 @@ class AgregarSitioWeb extends Component {
                           value={this.state.url}
                         />
                         <InputGroupAddon addonType="append">
+                          <AppSwitch 
+                            className={'mx-1'}
+                            variant={'3d'} 
+                            color={'success'} 
+                            size={'lg'}
+                            // checked 
+                          />
+                          <Button
+                            type="button" 
+                            color="primary"
+                            disabled={this.state.btn_disabled}
+                            onClick={this.handleScan}
+                          > Escanear</Button>
                           <Button
                             type="button" 
                             color="primary"
                             disabled={this.state.btn_disabled}
                             onClick={this.handleSubmit}
-                          > Enviar</Button>
+                          > Registrar</Button>
                         </InputGroupAddon>
                       </InputGroup>
                         <FormText color="muted">Ingrese URI</FormText>

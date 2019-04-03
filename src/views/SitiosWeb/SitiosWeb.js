@@ -77,7 +77,7 @@ class SitiosWeb extends Component {
   componentDidMount() {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token 416408756b2c37bcfedfab4ad8769cc9a5179afd'
+      'Authorization': 'Token 0b6e3bb6fdde1b15f8501e929f65061b8f014152'
     };
     if (this.props.sitiosweb.length === 0) {
       axios
