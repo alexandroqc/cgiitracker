@@ -4,6 +4,13 @@ export const login = token => ({
   token
 })
 
+export const actualizarWappalyzerEscaneado = (applications, meta, urls) => ({
+  type: 'UPDATE_WAPP_ESCANEADO',
+  applications,
+  meta,
+  urls
+})
+
 
 // export const adicionarSitioWeb = sitiosweb => ({
 //   type: 'ADICIONAR_SITIO_WEB',

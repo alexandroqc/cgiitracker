@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { createSitioWeb } from "../Redux/actions/sitioWebActions";
+import { actualizarWappalyzerEscaneado } from "../Redux/actions/index";
 // import { Link } from "react-router-dom";
 import {
   Card,
@@ -72,7 +73,8 @@ class AgregarSitioWeb extends Component {
     axios
     .get('http://0.0.0.0:8000/api/v1/page/search/'+uri, {headers: headers})
     .then(response => {
-      console.log(response.data)
+      console.log(response.data);
+      this.props.actualizarWappalyzerEscaneado(response.data);
       // response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb));
       // response.data.results.map((sitioweb) => console.log(sitioweb))
       // this.setState({
@@ -214,7 +216,8 @@ class AgregarSitioWeb extends Component {
 
 const mapDispatchToProps = (dispatch, props) => {
   return{
-    createSitioWeb: (sitioweb) => dispatch(createSitioWeb(sitioweb))
+    createSitioWeb: (sitioweb) => dispatch(createSitioWeb(sitioweb)),
+    actualizarWappalyzerEscaneado: (wappescaneado) => dispatch(actualizarWappalyzerEscaneado(wappescaneado))
   }
 }
 
