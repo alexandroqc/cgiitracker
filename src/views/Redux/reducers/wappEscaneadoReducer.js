@@ -1,24 +1,34 @@
 const initState = {
-    applications : [],
+    applications : [
+        {
+            categories: [],
+            confidence: '',
+            icon: '',
+            name: '',
+            version: '',
+            website: ''
+        }
+    ],
     meta: {},
     urls: {}
 }
 
-
 const wappEscaneadoReducer = (state = initState, action) => {
     switch (action.type) {
         case 'UPDATE_WAPP_ESCANEADO':
-            // console.log(action.token);
             return {
               ...state,
-              applications: action.applications,
-              meta: action.meta,
-              urls: action.urls
-
-            //   {
-            //       login: action.token
-            //   }
-            //   action.updates
+              applications: action.applications.applications.map( 
+                  app => { return {
+                      categories: app.categories,
+                      confidence: app.confidence,
+                      icon: app.icon,
+                      name: app.name,
+                      version: app.version,
+                      website: app.website
+                  } } ),
+              meta: action.applications.meta,
+              urls: action.applications.urls
             };
         default:
           return state
