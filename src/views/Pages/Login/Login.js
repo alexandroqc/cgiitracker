@@ -47,7 +47,7 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    axios.post('http://0.0.0.0:8000/api-token-auth/', data, {headers: headers})
+    axios.post(process.env.REACT_APP_API +'/api-token-auth/', data, {headers: headers})
     .then(response => {
       console.log(response.data);
       // this.props.dispatch(login(response.data))

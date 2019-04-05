@@ -42,7 +42,7 @@ class AgregarSitioWeb extends Component {
 
     const headers = {
       "Content-Type": "application/json",
-      Authorization: "Token 9378fb4c5660641d20b32831d8e96af0c5238fff"
+      Authorization: "Token " + this.props.auth.login.token
     };
 
     const data = {
@@ -52,7 +52,7 @@ class AgregarSitioWeb extends Component {
     };
 
     axios
-      .post("http://0.0.0.0:8000/api/v1/page/urlinfo/", data, {
+      .post(process.env.REACT_APP_API + '/api/v1/page/urlinfo/', data, {
         headers: headers
       })
       .then(response => {
@@ -69,14 +69,14 @@ class AgregarSitioWeb extends Component {
   handleScan = () => {
     const headers = {
       "Content-Type": "application/json",
-      Authorization: "Token 9378fb4c5660641d20b32831d8e96af0c5238fff"
+      Authorization: "Token " + this.props.auth.login.token
     };
     const uri = encodeURIComponent(
       this.state.protocol + "/" + this.state.domain + this.state.path
     );
     console.log(uri);
     axios
-      .get("http://0.0.0.0:8000/api/v1/page/search/" + uri, {
+      .get(process.env.REACT_APP_API + '/api/v1/page/search/' + uri, {
         headers: headers
       })
       .then(response => {
@@ -227,6 +227,12 @@ class AgregarSitioWeb extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+  }
+}
+
 const mapDispatchToProps = (dispatch, props) => {
   return {
     createSitioWeb: sitioweb => dispatch(createSitioWeb(sitioweb)),
@@ -236,6 +242,6 @@ const mapDispatchToProps = (dispatch, props) => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AgregarSitioWeb);

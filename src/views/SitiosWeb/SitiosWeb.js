@@ -77,11 +77,12 @@ class SitiosWeb extends Component {
   componentDidMount() {
     const headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Token 0b6e3bb6fdde1b15f8501e929f65061b8f014152'
+      'Authorization': 'Token ' + this.props.auth.login.token
     };
+    console.log(headers)
     if (this.props.sitiosweb.length === 0) {
       axios
-      .get('http://0.0.0.0:8000/api/v1/page/urlinfo/', {headers: headers})
+      .get(process.env.REACT_APP_API + '/api/v1/page/urlinfo/', {headers: headers})
       .then(response => {
         response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb));
         // response.data.results.map((sitioweb) => console.log(sitioweb))
@@ -178,6 +179,7 @@ class SitiosWeb extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    auth: state.auth,
     sitiosweb: state.sitiosweb
   }
 }
