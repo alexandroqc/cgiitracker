@@ -1,26 +1,55 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import ExpenseListItem from './ExpenseListItem';
-import selectExpenses from '../selectors/expenses';
+import React from "react";
+import { connect } from "react-redux";
+import DetalleAppEscaneo from "./DetalleAppEscaneo";
 
-// export const DetalleEscaneo = (props) => (
-//   <div>
-//     {
-//       props.expenses.length === 0 ? (
-//         <p>No expenses</p>
-//       ) : (
-//           props.expenses.map((expense) => {
-//             return <ExpenseListItem key={expense.id} {...expense} />;
-//           })
-//         )
-//     }
-//   </div>
-// );
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Badge,
+  Row,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  InputGroup,
+  FormText,
+  InputGroupAddon,
+  Button
+} from "reactstrap";
 
-// const mapStateToProps = (state) => {
-//   return {
-//     expenses: selectExpenses(state.expenses, state.filters)
-//   };
-// };
+export class DetalleEscaneo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
 
-// export default connect(mapStateToProps)(DetalleEscaneo);
+  render() {
+    return (
+      <div>
+        <Card>
+          <CardHeader>
+            <i className="fa fa-tags" /> Detalles de escaneo
+            <small className="text-muted"> fecha </small>
+          </CardHeader>
+          <CardBody>
+            <Row>
+                {this.props.wappescaneado.applications.map(app => {
+                  return <DetalleAppEscaneo key={app.name} {...app} />;
+                })}
+            </Row>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    wappescaneado: state.wappescaneado
+  };
+};
+
+export default connect(mapStateToProps)(DetalleEscaneo);
