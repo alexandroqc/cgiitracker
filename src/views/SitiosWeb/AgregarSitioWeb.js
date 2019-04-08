@@ -24,8 +24,8 @@ import axios from "axios";
 import DetalleEscaneo from "./DetalleEscaneo";
 
 class AgregarSitioWeb extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       url: "",
@@ -72,7 +72,7 @@ class AgregarSitioWeb extends Component {
       Authorization: "Token " + this.props.auth.login.token
     };
     const uri = encodeURIComponent(
-      this.state.protocol + "/" + this.state.domain + this.state.path
+      this.state.protocol + "//" + this.state.domain + this.state.path
     );
     console.log(uri);
     axios
@@ -162,7 +162,7 @@ class AgregarSitioWeb extends Component {
                           />
                           <Button
                             type="button"
-                            color="primary"
+                            color="secondary"
                             disabled={this.state.btn_disabled}
                             onClick={this.handleScan}
                           >
@@ -172,7 +172,7 @@ class AgregarSitioWeb extends Component {
                           <Button
                             type="button"
                             color="primary"
-                            disabled={this.state.btn_disabled}
+                            disabled={!this.state.exist_scanned_data}
                             onClick={this.handleSubmit}
                           >
                             {" "}
@@ -230,6 +230,7 @@ class AgregarSitioWeb extends Component {
 const mapStateToProps = (state) => {
   return {
     auth: state.auth,
+    wappescaneado: state.wappescaneado
   }
 }
 

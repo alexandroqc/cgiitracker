@@ -6,17 +6,7 @@ import {
   Card,
   CardBody,
   CardHeader,
-  Col,
-  Badge,
-  Row,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  InputGroup,
-  FormText,
-  InputGroupAddon,
-  Button
+  Row
 } from "reactstrap";
 
 export class DetalleEscaneo extends React.Component {

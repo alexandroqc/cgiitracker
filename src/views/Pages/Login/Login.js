@@ -49,7 +49,6 @@ class Login extends Component {
 
     axios.post(process.env.REACT_APP_API +'/api-token-auth/', data, {headers: headers})
     .then(response => {
-      console.log(response.data);
       // this.props.dispatch(login(response.data))
       this.props.login(response.data);
     })
@@ -57,6 +56,7 @@ class Login extends Component {
       console.log(error)
       // dispatch({type: ERROR_FINDING_USER})
     });
+    this.props.history.push("/");
   }
 
   render() {
