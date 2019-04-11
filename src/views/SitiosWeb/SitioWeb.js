@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 import { detalleSitioWeb } from "../Redux/actions";
 
+import DetalleSitioWeb from "./DetalleSitioWeb";
 import axios from "axios";
 
 class SitioWeb extends Component {
@@ -46,20 +47,7 @@ class SitioWeb extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col lg={12}>
-            <Card>
-              <CardHeader>
-                <strong><i className="icon-info pr-1"></i>Sitio Web id: {this.state.id}</strong>
-              </CardHeader>
-              <CardBody>
-                  <Table responsive striped hover>
-                    <tbody>
-                      <tr>
-                        <td> {this.state.uri} </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-              </CardBody>
-            </Card>
+            <DetalleSitioWeb />
           </Col>
         </Row>
       </div>
