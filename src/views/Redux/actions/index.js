@@ -36,6 +36,13 @@ export const actualizarWappalyzerEscaneado = (applications, meta, urls) => ({
   urls
 })
 
+export const detalleSitioWeb = (applications, id, uri) => ({
+  type: 'DETALLE_SITIO_WEB',
+  applications,
+  id,
+  uri
+})
+
 
 // export const adicionarSitioWeb = sitiosweb => ({
 //   type: 'ADICIONAR_SITIO_WEB',
@@ -62,7 +69,7 @@ export const adicionarSitioWeb = (
 export const borrarSitiosWeb = () => ({
   type: 'DELETE_SITIOS_WEB',
   sitiosweb : []
-})
+});
 
 // export const startAdicionarSitioWeb = (sitiowebData = {}) => {
 //   return (dispatch) => {
@@ -81,3 +88,16 @@ export const borrarSitiosWeb = () => ({
 //     // });
 //   };
 // };
+
+// export const detalleSitioWeb = (
+//   {
+//     id = '', 
+//     uri = '',
+//     applications = ''
+//   } = {}
+//   ) => ({
+//   type: 'DETALLE_SITIO_WEB', 
+//   id,
+//   uri,
+//   applications
+// })

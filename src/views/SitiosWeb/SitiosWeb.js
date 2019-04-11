@@ -79,13 +79,12 @@ class SitiosWeb extends Component {
       'Content-Type': 'application/json',
       'Authorization': 'Token ' + this.props.auth.login.token
     };
-    console.log(headers)
     if (this.props.sitiosweb.length === 0) {
       axios
-      .get(process.env.REACT_APP_API + '/api/v1/page/urlinfo/', {headers: headers})
+      .get(process.env.REACT_APP_API + '/api/v1/page/urlshortlist/', {headers: headers})
       .then(response => {
         response.data.results.map((sitioweb) => this.props.adicionarSitioWeb(sitioweb));
-        // response.data.results.map((sitioweb) => console.log(sitioweb))
+        // response.data.results.map((sitioweb) => console.log(sitioweb)) 
         this.setState({
           results : this.props.sitiosweb
         })

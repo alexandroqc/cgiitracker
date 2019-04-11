@@ -13,10 +13,10 @@ const DetalleAppEscaneo = ({ name, confidence, version, icon, website }) => (
           style={{ maxHeight: "32px", maxWidth: "32px" }}
           alt=""
         />
-        {name}
+        <strong className="text-center">{name}</strong>
         <div className="card-header-actions">
-          <Badge pill color="danger" className="float-right">
-            {confidence}
+          <Badge pill color="primary" className="float-right">
+            {confidence + ' %'}
           </Badge>
         </div>
       </CardHeader>

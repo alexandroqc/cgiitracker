@@ -1,36 +1,61 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+import { connect } from "react-redux";
 
-import sitiosWebData from './SitiosWebData';
+import { detalleSitioWeb } from "../Redux/actions";
+
+import axios from "axios";
 
 class SitioWeb extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: '',
+      uri: '',
+      applications: []
+    };
+  }
+
+  componentDidMount() {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Token ' + this.props.auth.login.token
+    };
+    axios
+    .get(process.env.REACT_APP_API + '/api/v1/page/urlinfo/'+this.props.match.params.id+'/', {headers: headers})
+    .then(response => {
+      this.props.detalleSitioWeb(response.data);
+      this.setState({
+        id : this.props.detallesitioweb.id,
+        uri: this.props.detallesitioweb.uri,
+        applications: this.props.detallesitioweb.applications
+      })
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    // this.state.sitioweb = this.props.sitiosweb.find( sitioweb => sitioweb.id.toString() ===  this.props.match.params.id )
+    // console.log(this.props.sitiosweb);
+  }
 
   render() {
 
-    const sitioweb = sitiosWebData.find( sitioweb => sitioweb.id.toString() === this.props.match.params.id)
-    const sitioWebDetails = sitioweb ? Object.entries(sitioweb) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
+    // const sitioWebDetails = this.state.sitioweb ? Object.entries(this.state.sitioweb) : [['id', (<span><i className="text-muted icon-ban"></i> Not found</span>)]]
 
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col lg={6}>
+          <Col lg={12}>
             <Card>
               <CardHeader>
-                <strong><i className="icon-info pr-1"></i>Sitio Web id: {this.props.match.params.id}</strong>
+                <strong><i className="icon-info pr-1"></i>Sitio Web id: {this.state.id}</strong>
               </CardHeader>
               <CardBody>
                   <Table responsive striped hover>
                     <tbody>
-                      {
-                        sitioWebDetails.map(([key, value]) => {
-                          return (
-                            <tr key={key}>
-                              <td>{`${key}:`}</td>
-                              <td><strong>{value}</strong></td>
-                            </tr>
-                          )
-                        })
-                      }
+                      <tr>
+                        <td> {this.state.uri} </td>
+                      </tr>
                     </tbody>
                   </Table>
               </CardBody>
@@ -41,5 +66,15 @@ class SitioWeb extends Component {
     )
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth,
+    detallesitioweb: state.detallesitioweb
+  }
+}
 
-export default SitioWeb;
+const mapDispatchToProps = dispatch => ({
+  detalleSitioWeb: detallesitioweb => dispatch(detalleSitioWeb(detallesitioweb)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SitioWeb);
